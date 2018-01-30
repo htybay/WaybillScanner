@@ -24,7 +24,7 @@ compile 'com.github.the-pig-of-jungle:WaybillScanner:v1.0.0'{
             exclude group: 'com.github.d-max:spots-dialog'
 }
 </code></pre>
-第二步，在你需要进入扫码模块的入口处：<br/>
+第二步，在你需要进入扫码模块的入口处调用代码：<br/>
 <pre><code>
         //获取运单扫描器
 

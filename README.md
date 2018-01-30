@@ -34,13 +34,17 @@ compile 'com.github.the-pig-of-jungle:WaybillScanner:v1.0.0'{
 
                 .deviceType(WaybillScanner.DEVICE_PHONE)
 
-                //设置操作类型，如扫码装车
+                //设置操作类型，如扫码装车、扫码卸车
 
                 .operateType(WaybillScanner.OPT_SCAN_LOAD)
 
                 //设置账号信息
 
                 .userInfo(UserInfo.create().userId("58").branchCode("2001").companyCode("002"))
+
+                //运行环境，可通过三种环境配置同名变量动态设置
+
+                .runningEnvironment(BuildConfig.RUNNING_ENVIRONMENT)
 
                 //跳到扫码界面
 

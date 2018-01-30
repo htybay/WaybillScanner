@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onTestClick(View view) {
         WaybillScanner.get(this)
+                .runningEnvironment(1)
                 .deviceType(WaybillScanner.DEVICE_PHONE)
                 .operateType(WaybillScanner.OPT_SCAN_LOAD)
                 .userInfo(UserInfo.create().userId("58").branchCode("2001").companyCode("002"))

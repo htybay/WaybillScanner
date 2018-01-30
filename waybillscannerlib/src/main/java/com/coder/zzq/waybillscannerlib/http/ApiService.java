@@ -22,6 +22,7 @@ public class ApiService {
 
     public static final String REAL_API_BASE_URL = "https://api.liinji.com";
 
+    public static String mApiBaseUril = DEBUG_API_BASE_URL;
 
     private static IApiService sApiService;
 
@@ -44,7 +45,7 @@ public class ApiService {
 
             sApiService =  new Retrofit.Builder()
                     .client(httpClient)
-                    .baseUrl(DEBUG_API_BASE_URL)
+                    .baseUrl(mApiBaseUril)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()

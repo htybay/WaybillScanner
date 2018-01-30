@@ -19,7 +19,12 @@ allprojects {
 </code></pre>
 2.在Module的grable文件中<br/>
 <pre></code>
-compile 'com.github.the-pig-of-jungle:WaybillScanner:v1.0.0'
+compile 'com.github.the-pig-of-jungle:WaybillScanner:v1.0.0'{
+            exclude group: 'com.android.support'
+            exclude group: 'cn.yipianfengye.android'
+            exclude group: 'com.github.CymChad:BaseRecyclerViewAdapterHelper'
+            exclude group: 'com.github.d-max:spots-dialog'
+}
 </code></pre>
 第二步，在你需要进入扫码模块的入口处：<br/>
 <pre><code>

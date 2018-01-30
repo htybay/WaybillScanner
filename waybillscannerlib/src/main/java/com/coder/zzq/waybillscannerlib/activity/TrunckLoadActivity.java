@@ -81,7 +81,7 @@ public class TrunckLoadActivity extends BaseScanActivity {
         revResult.setLayoutManager(new LinearLayoutManager(this));
         revResult.setAdapter(billAdapter);
         ApiService.get()
-                .getDepartTruckList(RequestParams.getDepartTruckListParam())
+                .getDepartTruckList(RequestParams.getDepartTruckListParam(this))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseResponse<List<TripNoToDepart>>>() {
@@ -183,7 +183,7 @@ public class TrunckLoadActivity extends BaseScanActivity {
 
     private void load(String waybill) {
         ApiService.get()
-                .loadGoods(RequestParams.getLoadGoodsParams(mSelectedTripNo.getTripNo(), waybill))
+                .loadGoods(RequestParams.getLoadGoodsParams(this,mSelectedTripNo.getTripNo(), waybill))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseResponse<LoadResult>>() {
@@ -401,6 +401,6 @@ public class TrunckLoadActivity extends BaseScanActivity {
             SmartToast.showAtTop("暂无车辆和目的网点可选！");
             return;
         }
-        getTripNoSelector().showAtLocation(mTrukAndBranch, Gravity.TOP, 0, Utils.dp2px(100));
+        getTripNoSelector().showAtLocation(mTrukAndBranch, Gravity.TOP, 0, (int) Utils.dp2px(this,100));
     }
 }

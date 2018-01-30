@@ -135,7 +135,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
 
 
         ApiService.get()
-                .getDepartTruckList(RequestParams.getDepartTruckListParam())
+                .getDepartTruckList(RequestParams.getDepartTruckListParam(this))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseResponse<List<TripNoToDepart>>>() {
@@ -166,7 +166,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                 });
 
         ApiService.get()
-                .loadSurvey(RequestParams.getLoadSurveyParams(strTruck))
+                .loadSurvey(RequestParams.getLoadSurveyParams(this,strTruck))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseResponse<LoadSummary>>() {
@@ -203,7 +203,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                     SmartToast.showAtTop("暂无车辆和目的网点可选！");
                     return;
                 }
-                getTripNoSelector().showAtLocation(mTopLine, Gravity.TOP, 0, Utils.dp2px(100));
+                getTripNoSelector().showAtLocation(mTopLine, Gravity.TOP, 0, (int) Utils.dp2px(LoadSurveyActivity.this,100));
             }
         });
     }
@@ -225,9 +225,9 @@ public class LoadSurveyActivity extends AppCompatActivity {
 
         int screenWidth = Utils.screenWidth(getResources());
 
-        int width = Utils.dp2px(50);
+        int width = (int) Utils.dp2px(this,50);
 
-        int height = Utils.dp2px(30);
+        int height = (int) Utils.dp2px(this,30);
 
         ArrayList<LoadAdapter.TableRow> th = new ArrayList<LoadAdapter.TableRow>();
         ArrayList<LoadAdapter.TableRow> tb = new ArrayList<LoadAdapter.TableRow>();
@@ -394,7 +394,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                                         return;
                                     }
                                     ApiService.get()
-                                            .loadSurvey(RequestParams.getLoadSurveyParams(strTruck))
+                                            .loadSurvey(RequestParams.getLoadSurveyParams(LoadSurveyActivity.this,strTruck))
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe(new Observer<BaseResponse<LoadSummary>>() {

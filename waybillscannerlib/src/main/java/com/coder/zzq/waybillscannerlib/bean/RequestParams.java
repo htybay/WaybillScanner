@@ -1,5 +1,6 @@
 package com.coder.zzq.waybillscannerlib.bean;
 
+import android.content.Context;
 import android.content.Intent;
 
 import com.coder.zzq.waybillscannerlib.http.HttpParams;
@@ -13,8 +14,8 @@ import java.util.Map;
 
 public class RequestParams {
 
-    public static LoadGoodsParams getLoadGoodsParams(String truckNo, String waybill) {
-        UserInfo userInfo = SharePrefUtils.getUserInfo();
+    public static LoadGoodsParams getLoadGoodsParams(Context context,String truckNo, String waybill) {
+        UserInfo userInfo = SharePrefUtils.getUserInfo(context);
         LoadGoodsParams loadGoodsParams = new LoadGoodsParams();
         loadGoodsParams.setBranchCode(userInfo.getBranchCode());
         loadGoodsParams.setCompanyCode(userInfo.getCompanyCode());
@@ -25,8 +26,8 @@ public class RequestParams {
         return loadGoodsParams;
     }
 
-    public static Map<String, String> getDepartTruckListParam() {
-        UserInfo userInfo = SharePrefUtils.getUserInfo();
+    public static Map<String, String> getDepartTruckListParam(Context context) {
+        UserInfo userInfo = SharePrefUtils.getUserInfo(context);
 
         return HttpParams.get()
                 .addParam(COMPANY_CODE, userInfo.getCompanyCode())
@@ -42,8 +43,8 @@ public class RequestParams {
     public static final String USER_ID = "userId";
 
 
-    public static Map<String, String> getLoadSurveyParams(String s) {
-        UserInfo userInfo = SharePrefUtils.getUserInfo();
+    public static Map<String, String> getLoadSurveyParams(Context context,String s) {
+        UserInfo userInfo = SharePrefUtils.getUserInfo(context);
 
         return HttpParams.get()
                 .addParam(BRANCH_CODE, userInfo.getBranchCode())

@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.TypedValue;
 
-import com.coder.zzq.waybillscannerlib.MyApplication;
+
+
 
 /**
  * Created by pig on 2018/1/29.
@@ -15,9 +16,7 @@ public class Utils {
         return string == null ? "" : string.trim();
     }
 
-    public static int dp2px(float dp){
-        return (int) dp2px(MyApplication.sContext,dp);
-    }
+
 
     public static float dp2px(Context context, float dp){
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,context.getResources().getDisplayMetrics());

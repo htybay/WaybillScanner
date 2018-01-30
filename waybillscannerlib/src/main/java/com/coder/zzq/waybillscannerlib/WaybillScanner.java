@@ -2,9 +2,11 @@ package com.coder.zzq.waybillscannerlib;
 
 import android.content.Context;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.coder.zzq.waybillscannerlib.activity.TrunckLoadActivity;
 import com.coder.zzq.waybillscannerlib.bean.UserInfo;
 import com.coder.zzq.waybillscannerlib.utils.SharePrefUtils;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 /**
  * Created by pig on 2018/1/29.
@@ -26,6 +28,8 @@ public class WaybillScanner {
 
     private WaybillScanner(Context context) {
         mContext = context;
+        SmartToast.plainToast(mContext.getApplicationContext());
+        ZXingLibrary.initDisplayOpinion(mContext.getApplicationContext());
     }
 
 
@@ -45,7 +49,7 @@ public class WaybillScanner {
     }
 
     public WaybillScanner userInfo(UserInfo userInfo) {
-        SharePrefUtils.storeUserInfo(userInfo);
+        SharePrefUtils.storeUserInfo(mContext,userInfo);
         return this;
     }
 

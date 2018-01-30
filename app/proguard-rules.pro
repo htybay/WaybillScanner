@@ -257,38 +257,34 @@
    }
 
 
-   # Retrofit
-   -dontnote retrofit2.Platform
-   -dontnote retrofit2.Platform$IOS$MainThreadExecutor
-   -dontwarn retrofit2.Platform$Java8
-   -keepattributes Signature
-   -keepattributes Exceptions
 
-   # okhttp
-   -dontwarn okio.**
-
-   # Gson
-   -keep class com.example.testing.retrofitdemo.bean.**{*;} # 自定义数据模型的bean目录
+# Gson
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
 
 
-#Rxjava RxAndroid
--dontwarn
-rx.*
--dontwarn
-sun.misc.**
--keepclassmembers
-class rx.internal.util.unsafe.*ArrayQuene*Field*{
-long producerIndex;
-long consumerIndex;
+
+# OkHttp3
+-dontwarn okhttp3.logging.**
+-keep class okhttp3.internal.**{*;}
+-dontwarn okio.**
+# Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 
 
--keepclassmembers
-class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-rx.internal.util.atomic.LinkedQueueNode producerNode;
-rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
--keepclassmembers
-class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
+-dontwarn com.coder.zzq.waybillscannerlib.**
+
+-keep class com.coder.zzq.waybillscannerlib.**{*;}

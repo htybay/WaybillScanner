@@ -138,7 +138,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                 .getDepartTruckList(RequestParams.getDepartTruckListParam(this))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseResponse<List<TripNoToDepart>>>() {
+                .subscribe(new Observer<BaseResponse<ArrayList<TripNoToDepart>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mDisposables.put("list", d);
@@ -146,7 +146,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(BaseResponse<List<TripNoToDepart>> value) {
+                    public void onNext(BaseResponse<ArrayList<TripNoToDepart>> value) {
                         mDisposables.remove("list");
                         truckList = value.getReturnData();
                     }

@@ -8,11 +8,8 @@
 allprojects {
 
     repositories {
-
         ...
-
         maven { url 'https://jitpack.io' }
-
     }
 
 }
@@ -20,6 +17,7 @@ allprojects {
 2.在Module的grable文件中<br/>
 <pre></code>
 compile 'com.github.the-pig-of-jungle:WaybillScanner:v1.0.0'{
+            //如果你的项目中已有下面的库，则剔除，避免类库冲突
             exclude group: 'com.android.support'
             exclude group: 'cn.yipianfengye.android'
             exclude group: 'com.github.CymChad:BaseRecyclerViewAdapterHelper'

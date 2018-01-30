@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.R.attr.value;
+
 public class TrunckLoadActivity extends BaseScanActivity {
     private BillInfoAdapter billAdapter;
 
@@ -84,7 +87,7 @@ public class TrunckLoadActivity extends BaseScanActivity {
                 .getDepartTruckList(RequestParams.getDepartTruckListParam(this))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseResponse<List<TripNoToDepart>>>() {
+                .subscribe(new Observer<BaseResponse<ArrayList<TripNoToDepart>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mDisposables.put("list",d);
@@ -92,10 +95,9 @@ public class TrunckLoadActivity extends BaseScanActivity {
                     }
 
                     @Override
-                    public void onNext(BaseResponse<List<TripNoToDepart>> value) {
+                    public void onNext(BaseResponse<ArrayList<TripNoToDepart>> value) {
                         mDisposables.remove("list");
                         truckList = value.getReturnData();
-
                     }
 
                     @Override

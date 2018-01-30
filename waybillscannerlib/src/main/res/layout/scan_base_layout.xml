@@ -37,7 +37,7 @@
             android:padding="16dp"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
     </android.support.v7.widget.Toolbar>
 
 </LinearLayout>

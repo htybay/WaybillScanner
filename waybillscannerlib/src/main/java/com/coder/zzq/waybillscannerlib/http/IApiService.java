@@ -5,6 +5,7 @@ import com.coder.zzq.waybillscannerlib.bean.LoadResult;
 import com.coder.zzq.waybillscannerlib.bean.LoadSummary;
 import com.coder.zzq.waybillscannerlib.bean.TripNoToDepart;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public interface IApiService {
     Observable<BaseResponse<LoadResult>> loadGoods(@Body LoadGoodsParams loadGoodsParams);
 
     @GET("/api/WaybillService/GetStoLocalListByDeliveryBranchCode")
-    Observable<BaseResponse<List<TripNoToDepart>>> getDepartTruckList(@QueryMap Map<String, String> params);
+    Observable<BaseResponse<ArrayList<TripNoToDepart>>> getDepartTruckList(@QueryMap Map<String, String> params);
 
     @GET("/api/WaybillService/GetLoadingSummaryByTripNo")
     Observable<BaseResponse<LoadSummary>> loadSurvey(@QueryMap Map<String,String> params);

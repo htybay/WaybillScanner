@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/root_container"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
-        app:navigationIcon="@drawable/ds_bk"
-        app:contentInsetStartWithNavigation="0dp"
-        app:contentInsetLeft="0dp"
         android:id="@+id/toolbar"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:navigationIcon="@drawable/ds_bk">
+
         <TextView
-            tools:text="货物扫码页面"
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,21 +24,20 @@
             android:layout_gravity="center"
             android:singleLine="true"
             android:textColor="@android:color/white"
-            android:textSize="20sp"/>
-
-
+            android:textSize="20sp"
+            tools:text="货物扫码页面"/>
 
 
         <TextView
             android:id="@+id/survey"
-            tools:text="概况"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:padding="16dp"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:visibility="visible"/>
+            android:visibility="gone"
+            tools:text="概况"/>
     </android.support.v7.widget.Toolbar>
 
 </LinearLayout>

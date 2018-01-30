@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/qt_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:id="@+id/item_billno"
+            style="@style/Grey4A_14_Style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/icon_ydh"
+            android:drawablePadding="4dp"
+            android:text="运单号: " />
+
+        <TextView
+            android:id="@+id/item_address"
+            style="@style/Grey4A_14_Style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/item_billno"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="8dp"
+            android:text="目的地: " />
+
+        <TextView
+            android:id="@+id/item_goods_total"
+            style="@style/Grey4A_14_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_address"
+            android:layout_below="@+id/item_address"
+            android:layout_marginTop="8dp"
+            android:text="总件数: " />
+
+        <TextView
+            android:id="@+id/item_goods_order"
+            style="@style/Grey4A_14_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/item_goods_total"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/item_goods_total"
+            android:text="" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+

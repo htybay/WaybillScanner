@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="toobarIconTextColor">@color/white</color>
+    <color name="windowbackground">#f7f7f7</color>
+    <color name="grey_333333">#333333</color>
+    <color name="red_ff5858">#ff5858</color>
+
+    <color name="text_color_hint">#DADADA</color>
+    <color name="text_color_normal">#4A4A4A</color>
+    <color name="line_color">#efefef</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="text_grey_dark4A">#4A4A4A</color>
+    <color name="text_grey_light99">#999999</color>
+    <color name="text_grey_light9B">#9B9B9B</color>
+    <color name="text_grey_lightCC">#CCCCCC</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="color_setting_bg_n">#fff4f3f3</color>
+    <!-- 登录UI -->
+    <color name="grey_686868">#686868</color>
+    <color name="red_f34d4d">#f34d4d</color>
+</resources>

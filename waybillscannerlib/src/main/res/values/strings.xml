@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WaybillScannerLib</string>
+    <string name="pda_scan_tip">点击屏幕下方的扫描键扫描运单</string>
+    <string name="phone_scan_tip">点击扫描运单</string>
+    <string name="load_title">干线装车</string>
+    <string name="unload_title">扫码卸车</string>
+    <string name="load_survey_desc">装车概况</string>
+    <string name="unload_survey_desc">卸车概况</string>
+</resources>

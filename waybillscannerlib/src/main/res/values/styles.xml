@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="toolbarNavigationButtonStyle">@style/toolbar_nav_button</item>
+    </style>
+    <color name="colorPrimary">#0dc25f</color>
+    <color name="colorPrimaryDark">#aa0cb458</color>
+    <color name="colorAccent">#0dc25f</color>
+
+
+    <!--textinputlayout样式-->
+    <style name="Textinputstyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <!--加载动画样式-->
+    <style name="CustomSpotsDialog" parent="android:Theme.DeviceDefault.Light.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">请稍等</item>
+        <item name="DialogSpotColor">@color/colorPrimary</item>
+        <item name="DialogSpotCount">6</item>
+    </style>
+
+
+        <style name="Grey4A_14_Style">
+            <item name="android:textSize">14sp</item>
+            <item name="android:textColor">@color/text_grey_dark4A</item>
+        </style>
+
+
+    <style name="total_item">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="toolbar_nav_button" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:minWidth">0dp</item>
+        <!--<item name="android:paddingLeft">16dp</item>-->
+        <!--<item name="android:paddingRight">16dp</item>-->
+    </style>
+</resources>

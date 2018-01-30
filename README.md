@@ -3,7 +3,24 @@
 # 使用
 在你需要进入扫码模块的入口处：<br/>
 第一步，添加依赖：</br>
+1.在Project的gradle文件中<br/>
+<pre><code>
+allprojects {
 
+    repositories {
+
+        ...
+
+        maven { url 'https://jitpack.io' }
+
+    }
+
+}
+</code></pre>
+2.在Module的grable文件中<br/>
+<pre></code>
+compile 'com.github.the-pig-of-jungle:WaybillScanner:v1.0.0'
+</code></pre>
 第二步，在你需要进入扫码模块的入口处：<br/>
 <pre><code>
         //获取运单扫描器

@@ -1,7 +1,7 @@
 # WaybillScanner
 运单扫描模块，支持PDA和android手机。v1.0.0提供扫码装车和查看装车概况。后续版本支持扫码卸车、返回场地、返库再送。<br/>
 # 使用
-在你需要进入扫码模块的入口处：<br/>
+
 第一步，添加依赖：</br>
 1.在Project的gradle文件中<br/>
 <pre><code>

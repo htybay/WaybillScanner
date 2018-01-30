@@ -22,7 +22,7 @@
 
                 .userInfo(UserInfo.create().userId("58").branchCode("2001").companyCode("002"))
 
-                //跳到扫码界面，你可以喝茶了。
+                //跳到扫码界面
 
                 .toScan();
 </code></pre>

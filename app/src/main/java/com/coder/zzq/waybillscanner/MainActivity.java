@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.coder.zzq.waybillscannerlib.WaybillScanner;
-import com.coder.zzq.waybillscannerlib.activity.TrunckLoadActivity;
 import com.coder.zzq.waybillscannerlib.bean.UserInfo;
+
 
 public class MainActivity extends AppCompatActivity {
 

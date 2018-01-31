@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.coder.zzq.smartshow.snackbar.SmartSnackbar;
 import com.coder.zzq.waybillscannerlib.R;
 import com.coder.zzq.waybillscannerlib.WaybillScanner;

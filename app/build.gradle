@@ -2,16 +2,16 @@ apply plugin: 'com.android.application'
 
 android {
 
-    signingConfigs {
-
-        release {
-            keyAlias 'lianji'
-            keyPassword '123456'
-            storeFile file('lianji.jks')
-            storePassword '123456'
-        }
-
-    }
+//    signingConfigs {
+//
+//        release {
+//            keyAlias 'lianji'
+//            keyPassword '123456'
+//            storeFile file('lianji.jks')
+//            storePassword '123456'
+//        }
+//
+//    }
 
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -25,13 +25,13 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
 
         debug {
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
     }
 }

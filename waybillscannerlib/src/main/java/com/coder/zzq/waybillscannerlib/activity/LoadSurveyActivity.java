@@ -141,8 +141,11 @@ public class LoadSurveyActivity extends AppCompatActivity {
                 .subscribe(new Observer<BaseResponse<ArrayList<TripNoToDepart>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        mDisposables.put("list", d);
-                        CustomDialog.showProgressDialog(LoadSurveyActivity.this);
+                        if (Utils.networkCheck(LoadSurveyActivity.this, d)) {
+                            mDisposables.put("list", d);
+                            CustomDialog.showProgressDialog(LoadSurveyActivity.this);
+                        }
+
                     }
 
                     @Override
@@ -166,13 +169,17 @@ public class LoadSurveyActivity extends AppCompatActivity {
                 });
 
         ApiService.get()
-                .loadSurvey(RequestParams.getLoadSurveyParams(this,strTruck))
+                .loadSurvey(RequestParams.getLoadSurveyParams(this, strTruck))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseResponse<LoadSummary>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        mDisposables.put("survey", d);
+                        if (Utils.networkCheck(LoadSurveyActivity.this, d)) {
+                            mDisposables.put("survey", d);
+                            CustomDialog.showProgressDialog(LoadSurveyActivity.this);
+                        }
+
                     }
 
                     @Override
@@ -203,7 +210,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                     SmartToast.showAtTop("暂无车辆和目的网点可选！");
                     return;
                 }
-                getTripNoSelector().showAtLocation(mTopLine, Gravity.TOP, 0, (int) Utils.dp2px(LoadSurveyActivity.this,100));
+                getTripNoSelector().showAtLocation(mTopLine, Gravity.TOP, 0, (int) Utils.dp2px(LoadSurveyActivity.this, 100));
             }
         });
     }
@@ -225,9 +232,9 @@ public class LoadSurveyActivity extends AppCompatActivity {
 
         int screenWidth = Utils.screenWidth(getResources());
 
-        int width = (int) Utils.dp2px(this,50);
+        int width = (int) Utils.dp2px(this, 50);
 
-        int height = (int) Utils.dp2px(this,30);
+        int height = (int) Utils.dp2px(this, 30);
 
         ArrayList<LoadAdapter.TableRow> th = new ArrayList<LoadAdapter.TableRow>();
         ArrayList<LoadAdapter.TableRow> tb = new ArrayList<LoadAdapter.TableRow>();
@@ -394,13 +401,16 @@ public class LoadSurveyActivity extends AppCompatActivity {
                                         return;
                                     }
                                     ApiService.get()
-                                            .loadSurvey(RequestParams.getLoadSurveyParams(LoadSurveyActivity.this,strTruck))
+                                            .loadSurvey(RequestParams.getLoadSurveyParams(LoadSurveyActivity.this, strTruck))
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe(new Observer<BaseResponse<LoadSummary>>() {
                                                 @Override
                                                 public void onSubscribe(Disposable d) {
-                                                    mDisposables.put("survey", d);
+                                                    if (Utils.networkCheck(LoadSurveyActivity.this, d)) {
+                                                        mDisposables.put("survey", d);
+                                                        CustomDialog.showProgressDialog(LoadSurveyActivity.this);
+                                                    }
                                                 }
 
                                                 @Override

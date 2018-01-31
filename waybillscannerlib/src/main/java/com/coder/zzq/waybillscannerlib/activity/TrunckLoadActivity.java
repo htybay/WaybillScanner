@@ -90,8 +90,10 @@ public class TrunckLoadActivity extends BaseScanActivity {
                 .subscribe(new Observer<BaseResponse<ArrayList<TripNoToDepart>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        mDisposables.put("list",d);
-                        CustomDialog.showProgressDialog(TrunckLoadActivity.this);
+                        if (Utils.networkCheck(TrunckLoadActivity.this,d)){
+                            mDisposables.put("list",d);
+                            CustomDialog.showProgressDialog(TrunckLoadActivity.this);
+                        }
                     }
 
                     @Override
@@ -191,8 +193,11 @@ public class TrunckLoadActivity extends BaseScanActivity {
                 .subscribe(new Observer<BaseResponse<LoadResult>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        mDisposables.put("loadGoods",d);
-                        CustomDialog.showProgressDialog(TrunckLoadActivity.this);
+                        if (Utils.networkCheck(TrunckLoadActivity.this,d)){
+                            mDisposables.put("loadGoods",d);
+                            CustomDialog.showProgressDialog(TrunckLoadActivity.this);
+                        }
+
                     }
 
                     @Override

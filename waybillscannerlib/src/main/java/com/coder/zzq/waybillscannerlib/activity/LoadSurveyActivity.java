@@ -420,16 +420,20 @@ public class LoadSurveyActivity extends AppCompatActivity {
                                                     txtvTitle.setVisibility(View.VISIBLE);
                                                     mLoadSummary = value.getReturnData();
                                                     setLoadList();
+
                                                 }
 
                                                 @Override
                                                 public void onError(Throwable e) {
                                                     mDisposables.remove("survey");
+                                                    SmartSnackbar.get(LoadSurveyActivity.this).showIndefinite(e.toString());
+                                                    CustomDialog.dissProgressDialog();
                                                 }
 
                                                 @Override
                                                 public void onComplete() {
                                                     mDisposables.remove("survey");
+                                                    CustomDialog.dissProgressDialog();
                                                 }
                                             });
                                 }

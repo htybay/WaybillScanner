@@ -10,7 +10,7 @@ import com.coder.zzq.waybillscannerlib.bean.UserInfo;
  * Created by Administrator on 2017/3/15.
  */
 public class SharePrefUtils {
-    public static final String USER_IFNO_PREF = "user_info";
+    public static final String USER_IFNO_PREF = "user_info_lib";
     public static final String USER_INFO_JSON = "json";
     private static final String USER_IFNO_JPUSH_CLIENT_ALIAS = "alias";
     private static final String PRINT_TYPE = "print_type";

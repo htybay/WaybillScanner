@@ -1,5 +1,5 @@
 # WaybillScanner
-运单扫描模块，支持PDA和android手机。v2.0.3提供扫码装车和查看装车概况。后续版本支持扫码卸车、返回场地、返库再送。<br/>
+运单扫描模块，支持PDA和android手机。v3.0.0提供扫码装车和查看装车概况,扫码卸货，卸货详情<br/>
 # 使用
 
 第一步，添加依赖：</br>
@@ -16,7 +16,7 @@ allprojects {
 </code></pre>
 2.在Module的grable文件中<br/>
 <pre></code>
-compile ('com.github.the-pig-of-jungle:WaybillScanner:v2.0.3'){
+compile ('com.github.the-pig-of-jungle:WaybillScanner:v3.0.0'){
             //如果你的项目中已有下面的库，则剔除，避免类库冲突
             exclude group: 'com.android.support'
             exclude group: 'cn.yipianfengye.android'

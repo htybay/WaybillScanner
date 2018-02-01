@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.coder.zzq.waybillscannerlib.activity.TrunckLoadActivity;
+import com.coder.zzq.waybillscannerlib.activity.UnloadActivity;
 import com.coder.zzq.waybillscannerlib.bean.UserInfo;
 import com.coder.zzq.waybillscannerlib.http.ApiService;
 import com.coder.zzq.waybillscannerlib.utils.SharePrefUtils;
@@ -44,8 +45,8 @@ public class WaybillScanner {
         return new WaybillScanner(context);
     }
 
-    public WaybillScanner runningEnvironment(int env){
-        switch (env){
+    public WaybillScanner runningEnvironment(int env) {
+        switch (env) {
             case ENV_TEST:
                 ApiService.mApiBaseUril = ApiService.DEBUG_API_BASE_URL;
                 break;
@@ -82,7 +83,7 @@ public class WaybillScanner {
                 TrunckLoadActivity.startActivity(mContext, mDeviceType, mOperateType);
                 break;
             case OPT_SCAN_UNLOAD:
-
+                UnloadActivity.startActivity(mContext, mDeviceType, mOperateType);
                 break;
         }
 

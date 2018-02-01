@@ -111,7 +111,6 @@ public abstract class BaseScanActivity extends AppCompatActivity {
                             startActivityForResult(intent, REQ_CODE_TO_SCAN);
                         }
 
-
                     }
                 });
                 break;
@@ -125,6 +124,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
             case WaybillScanner.OPT_SCAN_UNLOAD:
                 mToolbarTitle.setText(R.string.unload_title);
                 mSurvey.setText(R.string.unload_survey_desc);
+                mSurvey.setVisibility(View.VISIBLE);
                 break;
         }
 

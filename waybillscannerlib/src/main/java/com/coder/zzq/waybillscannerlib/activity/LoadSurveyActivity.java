@@ -158,7 +158,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
                         mDisposables.remove("list");
                         CustomDialog.dissProgressDialog();
-                        SmartSnackbar.get(LoadSurveyActivity.this).showIndefinite(e.toString());
+                        SmartSnackbar.get(LoadSurveyActivity.this).showIndefinite(e.toString(),"知道了");
                     }
 
                     @Override
@@ -194,6 +194,8 @@ public class LoadSurveyActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         mDisposables.remove("survey");
+                        CustomDialog.dissProgressDialog();
+                        SmartSnackbar.get(LoadSurveyActivity.this).showIndefinite(e.toString(),"知道了");
                     }
 
                     @Override
@@ -426,7 +428,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onError(Throwable e) {
                                                     mDisposables.remove("survey");
-                                                    SmartSnackbar.get(LoadSurveyActivity.this).showIndefinite(e.toString());
+                                                    SmartSnackbar.get(LoadSurveyActivity.this).showIndefinite(e.toString(),"知道了");
                                                     CustomDialog.dissProgressDialog();
                                                 }
 

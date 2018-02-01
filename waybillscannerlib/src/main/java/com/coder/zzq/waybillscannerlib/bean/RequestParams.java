@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class RequestParams {
 
-    public static LoadGoodsParams getLoadGoodsParams(Context context,String truckNo, String waybill) {
+    public static LoadGoodsParams getLoadGoodsParams(Context context, String truckNo, String waybill) {
         UserInfo userInfo = SharePrefUtils.getUserInfo(context);
         LoadGoodsParams loadGoodsParams = new LoadGoodsParams();
         loadGoodsParams.setBranchCode(userInfo.getBranchCode());
@@ -43,7 +43,7 @@ public class RequestParams {
     public static final String USER_ID = "userId";
 
 
-    public static Map<String, String> getLoadSurveyParams(Context context,String s) {
+    public static Map<String, String> getLoadSurveyParams(Context context, String s) {
         UserInfo userInfo = SharePrefUtils.getUserInfo(context);
 
         return HttpParams.get()
@@ -53,4 +53,35 @@ public class RequestParams {
                 .addParam(USER_ID, userInfo.getUserId())
                 .toMap();
     }
+
+    public static UnloadGoodsParams getUnloadGoodsParams(Context context, String tripNo, String bills) {
+        UserInfo userInfo = SharePrefUtils.getUserInfo(context);
+        UnloadGoodsParams params = new UnloadGoodsParams();
+        params.setCompanyCode(userInfo.getCompanyCode());
+        params.setBranchCode(userInfo.getBranchCode());
+        params.setUserId(Integer.parseInt(userInfo.getUserId()));
+        params.setTripNo(tripNo);
+        params.setWaybillList(bills);
+        return params;
+    }
+
+    public static Map<String, String> getReceiveTruckListParams(Context context) {
+        UserInfo userInfo = SharePrefUtils.getUserInfo(context);
+        return HttpParams.get()
+                .addParam(BRANCH_CODE, userInfo.getBranchCode())
+                .addParam(COMPANY_CODE, userInfo.getCompanyCode())
+                .addParam(USER_ID, Integer.parseInt(userInfo.getUserId()))
+                .addParam("status", "3")
+                .toMap();
+    }
+
+    public static Map<String, String> getUnloadSurveyParams(Context context, String tripNo) {
+        UserInfo userInfo = SharePrefUtils.getUserInfo(context);
+        return HttpParams.get()
+                .addParam("tripNo",tripNo)
+                .addParam(BRANCH_CODE,userInfo.getBranchCode())
+                .addParam(COMPANY_CODE,userInfo.getCompanyCode())
+                .toMap();
+    }
+
 }

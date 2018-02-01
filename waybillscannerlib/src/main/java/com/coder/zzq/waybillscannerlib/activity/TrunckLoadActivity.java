@@ -106,7 +106,7 @@ public class TrunckLoadActivity extends BaseScanActivity {
                     public void onError(Throwable e) {
                         mDisposables.remove("list");
                         CustomDialog.dissProgressDialog();
-                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(e.toString());
+                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(e.toString(),"知道了");
                     }
 
                     @Override
@@ -231,7 +231,7 @@ public class TrunckLoadActivity extends BaseScanActivity {
                     public void onError(Throwable e) {
                         mDisposables.remove("loadGoods");
                         CustomDialog.dissProgressDialog();
-                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(e.toString());
+                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(e.toString(),"知道了");
                     }
 
                     @Override

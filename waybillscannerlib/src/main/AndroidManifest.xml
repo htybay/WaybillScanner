@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
@@ -19,8 +20,11 @@
         </activity>
         <activity android:name=".activity.LoadSurveyActivity">
         </activity>
+        <activity android:name=".activity.UnloadActivity">
+        </activity>
 
-
+        <activity android:name=".activity.UnloadSurveyActivity">
+        </activity>
     </application>
 
 </manifest>

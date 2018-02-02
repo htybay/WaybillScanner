@@ -208,6 +208,8 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     }
 
     protected void playNormalSound() {
+
+
         soundTip("2");
     }
 

@@ -84,6 +84,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
         setContentView(R.layout.scan_base_layout);
         LinearLayout root = (LinearLayout) findViewById(R.id.root_container);
         LayoutInflater.from(this).inflate(contentLayout(), root, true);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,11 +107,10 @@ public abstract class BaseScanActivity extends AppCompatActivity {
                 mScanTip.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                            playErrorSound();
-//                        Intent intent = new Intent(BaseScanActivity.this, CaptureActivity.class);
-//                        if(onPhoneScanTipClick()){
-//                            startActivityForResult(intent, REQ_CODE_TO_SCAN);
-//                        }
+                        Intent intent = new Intent(BaseScanActivity.this, CaptureActivity.class);
+                        if(onPhoneScanTipClick()){
+                            startActivityForResult(intent, REQ_CODE_TO_SCAN);
+                        }
 
 
                     }

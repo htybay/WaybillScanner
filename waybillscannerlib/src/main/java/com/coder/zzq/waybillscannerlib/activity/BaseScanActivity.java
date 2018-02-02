@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import io.reactivex.disposables.Disposable;
 
@@ -227,6 +229,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
 
 
     protected boolean onReceiveScanData(String data) {
+        Log.d("scan","before check:" + data);
         if (Utils.trimOrder(data).isEmpty()) {
             SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！","知道了");
             playErrorSound();
@@ -239,6 +242,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
             return false;
         }
 
+        Log.d("scan","after check:" + data);
 
 
         return true;
@@ -254,6 +258,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
             switch (bundle.getInt(CodeUtils.RESULT_TYPE)) {
                 case CodeUtils.RESULT_SUCCESS:
                     String orderStr = Utils.trimOrder(bundle.getString(CodeUtils.RESULT_STRING));
+                    Log.d("scan","on scan str :" + orderStr);
                     onReceiveScanData(orderStr);
                     break;
                 case CodeUtils.RESULT_FAILED:

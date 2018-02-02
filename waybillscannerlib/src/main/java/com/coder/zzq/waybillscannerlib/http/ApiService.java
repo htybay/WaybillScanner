@@ -26,25 +26,27 @@ public class ApiService {
 
     private static IApiService sApiService;
 
-    private ApiService(){
+    private ApiService() {
 
     }
 
 
-    public static IApiService get(){
+    public static IApiService get() {
 
-        if (sApiService == null){
+        if (sApiService == null) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient httpClient = new OkHttpClient.Builder()
+                    .retryOnConnectionFailure(true)
                     .addInterceptor(loggingInterceptor)
                     .connectTimeout(10, TimeUnit.SECONDS)
-                    .readTimeout(10,TimeUnit.SECONDS)
-                    .writeTimeout(10,TimeUnit.SECONDS)
+                    .readTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
                     .build();
 
-            sApiService =  new Retrofit.Builder()
+            sApiService = new Retrofit.Builder()
                     .client(httpClient)
+
                     .baseUrl(mApiBaseUril)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())

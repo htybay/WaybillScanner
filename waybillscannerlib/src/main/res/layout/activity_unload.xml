@@ -5,49 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#eeeeee"
     android:orientation="vertical"
     tools:context="com.coder.zzq.waybillscannerlib.activity.UnloadActivity">
-    <LinearLayout
+
+
+    <!--显示扫码后的信息-->
+    <EditText
+        android:drawablePadding="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:drawableLeft="@drawable/fh_btn_scan_disabled"
+        android:id="@+id/scan_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="#ffffff"
+        android:focusable="false"
+        android:paddingLeft="16dp"
+        android:text="点击屏幕下方扫描键扫码"
+        android:textColor="#999999"
+        android:textSize="16sp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="2dp"
-            android:background="#ffffff"
-            android:orientation="horizontal"
-            android:padding="5dp">
+        <requestFocus/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="2dp"
-                android:src="@drawable/fh_btn_scan_disabled" />
-            <!--显示扫码后的信息-->
-            <EditText
-                android:paddingLeft="8dp"
-                android:id="@+id/scan_tip"
-                android:layout_width="260dp"
-                android:textColor="#999999"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:background="@null"
-                android:focusable="false"
-                android:text="点击屏幕下方扫描键扫码"
-                android:textSize="16sp">
-                <requestFocus />
-
-            </EditText>
-
-        </LinearLayout>
-    </LinearLayout>
+    </EditText>
 
 
-    <include layout="@layout/empty_hint" />
+    <include layout="@layout/empty_hint"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

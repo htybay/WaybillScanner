@@ -66,7 +66,7 @@ public class UnloadActivity extends BaseScanActivity {
         mSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UnloadActivity.this,UnloadSurveyActivity.class);
+                Intent intent = new Intent(UnloadActivity.this, UnloadSurveyActivity.class);
                 intent.putExtra("tripNo", strTruck);
                 intent.putExtra("flagActivity", 1);//1卸货
                 startActivity(intent);
@@ -83,13 +83,16 @@ public class UnloadActivity extends BaseScanActivity {
 
 
     @Override
-    protected boolean onReceiveScanData(String data) {
-        if (!super.onReceiveScanData(data)) {
-            return false;
+    protected void onReceiveScanData(String data) {
+        if (Utils.trimOrder(data).isEmpty()) {
+            SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！", "知道了");
+            playErrorSound();
         }
 
-        Log.d("scan","on scan str to child:" + data);
-
+        if (!data.matches(WAYBILL_REG_EX)) {
+            SmartSnackbar.get(this).showIndefinite("请扫描货物标签：" + data, "知道了");
+            playErrorSound();
+        }
         final BillEntity billEntity = new BillEntity();
 
 
@@ -152,7 +155,7 @@ public class UnloadActivity extends BaseScanActivity {
                         CustomDialog.dissProgressDialog();
                     }
                 });
-        return true;
+
     }
 
     @Override

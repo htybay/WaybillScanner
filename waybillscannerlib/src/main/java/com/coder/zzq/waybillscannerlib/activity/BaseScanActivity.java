@@ -61,9 +61,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
 
     protected View mEmptyView;
 
-    protected Map<String,Disposable> mDisposables = new HashMap<>();
-
-
+    protected Map<String, Disposable> mDisposables = new HashMap<>();
 
 
     //凯立 K7 PAD 逻辑 start
@@ -78,8 +76,8 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     public static final String WAYBILL_REG_EX = "[0-9]{14,}-[0-9]{1,}-[0-9]{1,}";
 
 
-
     private Toolbar mToolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,10 +106,12 @@ public abstract class BaseScanActivity extends AppCompatActivity {
                 mScanTip.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(BaseScanActivity.this, CaptureActivity.class);
-                        if(onPhoneScanTipClick()){
-                            startActivityForResult(intent, REQ_CODE_TO_SCAN);
-                        }
+                            playErrorSound();
+//                        Intent intent = new Intent(BaseScanActivity.this, CaptureActivity.class);
+//                        if(onPhoneScanTipClick()){
+//                            startActivityForResult(intent, REQ_CODE_TO_SCAN);
+//                        }
+
 
                     }
                 });
@@ -181,35 +181,24 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     }
 
 
-
-    private void soundTip(int soundType) {
-
-
-        if (mDeviceType == WaybillScanner.DEVICE_PHONE){
-            return;
-        }
-
-        String soundFile = "001.wav";
-
+    private void soundTip(String strType) {
         try {
 
             AssetManager assetManager = this.getAssets();
             final MediaPlayer player = new MediaPlayer();
-
-            switch (soundType) {
-                case SOUND_TIP_NORMAL:
-                    soundFile = "003.wav";
-                    break;
-                case SOUND_TIP_ERROR:
-                    soundFile = "001.wav";
-                    break;
-
+            if ("1".equals(strType)) {
+                //异常警告音
+                AssetFileDescriptor afd = assetManager.openFd("001.wav");
+                player.setDataSource(afd.getFileDescriptor(),
+                        afd.getStartOffset(), afd.getLength());
+            } else if ("2".equals(strType)) {
+                //正常提示音
+                AssetFileDescriptor afd = assetManager.openFd("003.wav");
+                player.setDataSource(afd.getFileDescriptor(),
+                        afd.getStartOffset(), afd.getLength());
             }
-
-            AssetFileDescriptor afd = assetManager.openFd(soundFile);
-            player.setDataSource(afd.getFileDescriptor(),
-                    afd.getStartOffset(), afd.getLength());
-
+            //循环播放
+            //player.setLooping(true);
             player.prepare();
             player.start();
         } catch (Exception e) {
@@ -218,34 +207,26 @@ public abstract class BaseScanActivity extends AppCompatActivity {
 
     }
 
-    protected void playNormalSound(){
-        soundTip(SOUND_TIP_NORMAL);
+    protected void playNormalSound() {
+        soundTip("2");
     }
 
-    protected void playErrorSound(){
-        soundTip(SOUND_TIP_ERROR);
+    protected void playErrorSound() {
+        soundTip("1");
     }
 
 
+    protected void onReceiveScanData(String data) {
 
-    protected boolean onReceiveScanData(String data) {
-        Log.d("scan","before check:" + data);
         if (Utils.trimOrder(data).isEmpty()) {
-            SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！","知道了");
+            SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！", "知道了");
             playErrorSound();
-            return false;
         }
 
-        if (!data.matches(WAYBILL_REG_EX)){
-            SmartSnackbar.get(this).showIndefinite("扫描到非法运单号：" + data,"知道了");
+        if (!data.matches(WAYBILL_REG_EX)) {
+            SmartSnackbar.get(this).showIndefinite("请扫描货物标签：" + data, "知道了");
             playErrorSound();
-            return false;
         }
-
-        Log.d("scan","after check:" + data);
-
-
-        return true;
 
     }
 
@@ -258,7 +239,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
             switch (bundle.getInt(CodeUtils.RESULT_TYPE)) {
                 case CodeUtils.RESULT_SUCCESS:
                     String orderStr = Utils.trimOrder(bundle.getString(CodeUtils.RESULT_STRING));
-                    Log.d("scan","on scan str :" + orderStr);
+                    Log.d("scan", "on scan str :" + orderStr);
                     onReceiveScanData(orderStr);
                     break;
                 case CodeUtils.RESULT_FAILED:
@@ -272,10 +253,10 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mDisposables != null && !mDisposables.isEmpty()){
+        if (mDisposables != null && !mDisposables.isEmpty()) {
             Set<String> list = mDisposables.keySet();
-            for (String s : list){
-                if (!mDisposables.get(s).isDisposed()){
+            for (String s : list) {
+                if (!mDisposables.get(s).isDisposed()) {
                     mDisposables.get(s).dispose();
 
                 }

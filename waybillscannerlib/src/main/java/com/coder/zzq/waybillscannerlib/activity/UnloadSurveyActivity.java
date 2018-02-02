@@ -48,6 +48,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.coder.zzq.waybillscannerlib.R.id.driver;
+import static com.coder.zzq.waybillscannerlib.R.id.last_station;
+import static com.coder.zzq.waybillscannerlib.R.id.textView10;
+import static com.coder.zzq.waybillscannerlib.R.id.textView11;
+import static com.coder.zzq.waybillscannerlib.R.id.textView12;
+import static com.coder.zzq.waybillscannerlib.R.id.textView7;
+import static com.coder.zzq.waybillscannerlib.R.id.textView8;
+import static com.coder.zzq.waybillscannerlib.R.id.textView9;
+
 public class UnloadSurveyActivity extends AppCompatActivity {
     TextView txtvTitle;
 
@@ -238,38 +247,23 @@ public class UnloadSurveyActivity extends AppCompatActivity {
                     mSelectedTripNo = (ToUnloadTripNo) parent.getItemAtPosition(position);
 
 
-                    View dialogView = LayoutInflater.from(UnloadSurveyActivity.this).inflate(R.layout.item_truck, null);
+                    View dialogView = LayoutInflater.from(UnloadSurveyActivity.this).inflate(R.layout.item_truck_new, null);
 
                     //下拉弹出确认框
-                    TextView textView7 = (TextView) dialogView.findViewById(R.id.textView7);//当前网点
-                    TextView textView8 = (TextView) dialogView.findViewById(R.id.textView8);//到达网点
-                    TextView textView9 = (TextView) dialogView.findViewById(R.id.textView9);//趟次号
-                    TextView textView10 = (TextView) dialogView.findViewById(R.id.textView10);//车牌
-                    TextView textView11 = (TextView) dialogView.findViewById(R.id.textView11);//司机/手机
-                    TextView textView12 = (TextView) dialogView.findViewById(R.id.textView12);//已装货量
+                    TextView lastStationTV = (TextView) dialogView.findViewById(last_station);//上一站
+                    TextView tripNoTV = (TextView) dialogView.findViewById(R.id.trip_no);//交接单号
+                    TextView truckNoTV = (TextView) dialogView.findViewById(R.id.truck_no);//车牌
+                    TextView driverTV = (TextView) dialogView.findViewById(driver);//司机/手机
 
 
-                    textView7.setText(mSelectedTripNo.getBranchName());
+                    lastStationTV.append(mSelectedTripNo.getBranchName());
 
-                    StringBuilder strBranch = new StringBuilder();
-                    if (!TextUtils.isEmpty(mSelectedTripNo.getArrivalBranchName())) {
-                        strBranch.append(mSelectedTripNo.getArrivalBranchName());
-                    }
 
-                    textView8.setText(strBranch);
-                    textView9.setText(mSelectedTripNo.getTripNo());
-                    textView10.setText(mSelectedTripNo.getVehicleNo());
+                    tripNoTV.append(mSelectedTripNo.getTripNo());
+                    truckNoTV.append(mSelectedTripNo.getVehicleNo());
                     //textView11.setText(truckEntity.getDriverName1() + "/" + truckEntity.getDriverContactTel1());
-                    textView11.setText(mSelectedTripNo.getDriverName() + "/" + mSelectedTripNo.getDriverContactTel());
-                    textView12.setText(mSelectedTripNo.getTotalPieces().toString());
-                    //未卸货
-                    TextView textView = (TextView) dialogView.findViewById(R.id.textView);
-                    TextView textView14 = (TextView) dialogView.findViewById(R.id.textView14);
-                    TextView textView15 = (TextView) dialogView.findViewById(R.id.textView15);
-                    textView.setVisibility(View.GONE);
-                    textView14.setVisibility(View.GONE);
-                    textView15.setVisibility(View.GONE);
-                    textView12.setVisibility(View.GONE);
+                    driverTV.append(mSelectedTripNo.getDriverName() + "/" + mSelectedTripNo.getDriverContactTel());
+
 
                     mTripNoSelector.dismiss();
 

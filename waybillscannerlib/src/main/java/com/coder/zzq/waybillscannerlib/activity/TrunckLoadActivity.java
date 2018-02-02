@@ -157,16 +157,24 @@ public class TrunckLoadActivity extends BaseScanActivity {
     }
 
     @Override
-    protected boolean onReceiveScanData(String data) {
-        if (!super.onReceiveScanData(data)){
-            return false;
+    protected void onReceiveScanData(String data) {
+        if (Utils.trimOrder(data).isEmpty()) {
+            SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！","知道了");
+            playErrorSound();
+            return;
+        }
+
+        if (!data.matches(WAYBILL_REG_EX)){
+            SmartSnackbar.get(this).showIndefinite("请扫描货物标签：" + data,"知道了");
+            playErrorSound();
+            return;
         }
 
 
         if (mTrukAndBranch.getText().equals("请选择车辆信息")) {
             SmartToast.showInCenter("请选择车辆信息！");
             playErrorSound();
-            return false;
+            return;
         }
 
         BillEntity billEntity = new BillEntity();
@@ -182,7 +190,6 @@ public class TrunckLoadActivity extends BaseScanActivity {
 
         load(data);
 
-        return true;
     }
 
     private void load(String waybill) {

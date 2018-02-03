@@ -3,7 +3,9 @@ package com.coder.zzq.waybillscannerlib.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +44,7 @@ import com.coder.zzq.waybillscannerlib.http.BaseResponse;
 import com.coder.zzq.waybillscannerlib.utils.CustomDialog;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,10 +112,13 @@ public class TrunckLoadActivity extends BaseScanActivity {
                     public void onError(Throwable e) {
                         mDisposables.remove("list");
                         CustomDialog.dissProgressDialog();
+                        String tip = "";
                         if (e.getClass() == SocketTimeoutException.class){
-
+                            tip = "网络超时！";
+                        }else if (e.getClass() == IOException.class){
+                            tip = "网络请求错误，请重新扫码！";
                         }
-                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(e.toString(),"知道了");
+                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(tip,"知道了");
                     }
 
                     @Override
@@ -269,7 +275,13 @@ public class TrunckLoadActivity extends BaseScanActivity {
                     public void onError(Throwable e) {
                         mDisposables.remove("loadGoods");
                         CustomDialog.dissProgressDialog();
-                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(e.toString(),"知道了");
+                        String tip = "";
+                        if (e.getClass() == SocketTimeoutException.class){
+                            tip = "网络超时！";
+                        }else if (e.getClass() == IOException.class){
+                            tip = "网络请求错误，请重新扫码！";
+                        }
+                        SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(tip,"知道了");
                     }
 
                     @Override
@@ -448,10 +460,26 @@ public class TrunckLoadActivity extends BaseScanActivity {
         }
         getTripNoSelector().showAtLocation(mTrukAndBranch, Gravity.TOP, 0, (int) Utils.dp2px(this,100));
     }
+    private void releaseMediaplayer(MediaPlayer mediaPlayerError) {
+        if (mediaPlayerError != null){
+            mediaPlayerError.stop();
+            mediaPlayerError.release();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaplayer(mMediaPlayerError);
+        releaseMediaplayer(mMediaPlayerNormal);
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        mMediaPlayerNormal = null;
+        mMediaPlayerError = null;
         if (mDisposables != null && !mDisposables.isEmpty()) {
             Set<String> list = mDisposables.keySet();
             for (String s : list) {
@@ -464,5 +492,60 @@ public class TrunckLoadActivity extends BaseScanActivity {
         }
 
         SmartSnackbar.destroy(this);
+    }
+
+    private MediaPlayer mMediaPlayerNormal;
+    private MediaPlayer mMediaPlayerError;
+
+    private void soundTip(int type) {
+
+
+        switch (type) {
+            case SOUND_TIP_NORMAL:
+                getNormalPlayer().start();
+                break;
+            case SOUND_TIP_ERROR:
+                getErrorPlayer().start();
+                break;
+        }
+
+    }
+
+    private MediaPlayer getErrorPlayer() {
+        if (mMediaPlayerError == null){
+            mMediaPlayerError = new MediaPlayer();
+            try {
+                AssetFileDescriptor assetFileDescriptor = getAssets().openFd("001.wav");
+                mMediaPlayerError.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                mMediaPlayerError.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return mMediaPlayerError;
+    }
+
+    private MediaPlayer getNormalPlayer() {
+        if (mMediaPlayerNormal == null){
+            mMediaPlayerNormal = new MediaPlayer();
+            try {
+                AssetFileDescriptor assetFileDescriptor = getAssets().openFd("003.wav");
+                mMediaPlayerNormal.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                mMediaPlayerNormal.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return mMediaPlayerNormal;
+    }
+
+    protected void playNormalSound() {
+        soundTip(SOUND_TIP_NORMAL);
+    }
+
+    protected void playErrorSound() {
+        soundTip(SOUND_TIP_ERROR);
     }
 }

@@ -2,6 +2,8 @@ package com.coder.zzq.waybillscannerlib.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -211,5 +213,76 @@ public class UnloadActivity extends BaseScanActivity {
         }
 
         SmartSnackbar.destroy(this);
+    }
+
+
+    private void releaseMediaplayer(MediaPlayer mediaPlayerError) {
+        if (mediaPlayerError != null){
+            mediaPlayerError.stop();
+            mediaPlayerError.release();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaplayer(mMediaPlayerError);
+        releaseMediaplayer(mMediaPlayerNormal);
+    }
+
+
+    private MediaPlayer mMediaPlayerNormal;
+    private MediaPlayer mMediaPlayerError;
+
+    private void soundTip(int type) {
+
+
+        switch (type) {
+            case SOUND_TIP_NORMAL:
+                getNormalPlayer().start();
+                break;
+            case SOUND_TIP_ERROR:
+                getErrorPlayer().start();
+                break;
+        }
+
+    }
+
+    private MediaPlayer getErrorPlayer() {
+        if (mMediaPlayerError == null){
+            mMediaPlayerError = new MediaPlayer();
+            try {
+                AssetFileDescriptor assetFileDescriptor = getAssets().openFd("001.wav");
+                mMediaPlayerError.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                mMediaPlayerError.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return mMediaPlayerError;
+    }
+
+    private MediaPlayer getNormalPlayer() {
+        if (mMediaPlayerNormal == null){
+            mMediaPlayerNormal = new MediaPlayer();
+            try {
+                AssetFileDescriptor assetFileDescriptor = getAssets().openFd("003.wav");
+                mMediaPlayerNormal.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                mMediaPlayerNormal.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return mMediaPlayerNormal;
+    }
+
+    protected void playNormalSound() {
+        soundTip(SOUND_TIP_NORMAL);
+    }
+
+    protected void playErrorSound() {
+        soundTip(SOUND_TIP_ERROR);
     }
 }

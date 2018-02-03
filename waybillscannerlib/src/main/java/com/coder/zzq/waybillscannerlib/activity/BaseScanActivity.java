@@ -219,17 +219,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
 
 
     protected void onReceiveScanData(String data) {
-
-        if (Utils.trimOrder(data).isEmpty()) {
-            SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！", "知道了");
-            playErrorSound();
-        }
-
-        if (!data.matches(WAYBILL_REG_EX)) {
-            SmartSnackbar.get(this).showIndefinite("请扫描货物标签：" + data, "知道了");
-            playErrorSound();
-        }
-
+        Log.d("fuck",data);
     }
 
 
@@ -240,7 +230,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
             Bundle bundle = data.getExtras();
             switch (bundle.getInt(CodeUtils.RESULT_TYPE)) {
                 case CodeUtils.RESULT_SUCCESS:
-                    String orderStr = Utils.trimOrder(bundle.getString(CodeUtils.RESULT_STRING));
+                    String orderStr = bundle.getString(CodeUtils.RESULT_STRING);
                     Log.d("scan", "on scan str :" + orderStr);
                     onReceiveScanData(orderStr);
                     break;

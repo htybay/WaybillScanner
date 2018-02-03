@@ -35,6 +35,7 @@ public class WaybillScanner {
 
     private WaybillScanner(Context context) {
         mContext = context;
+
         SmartToast.plainToast(mContext.getApplicationContext());
         ZXingLibrary.initDisplayOpinion(mContext.getApplicationContext());
     }

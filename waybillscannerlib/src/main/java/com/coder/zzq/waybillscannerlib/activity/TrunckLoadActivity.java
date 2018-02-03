@@ -158,6 +158,9 @@ public class TrunckLoadActivity extends BaseScanActivity {
 
     @Override
     protected void onReceiveScanData(String data) {
+
+        Log.d("fuck",data);
+
         if (Utils.trimOrder(data).isEmpty()) {
             SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！","知道了");
             playErrorSound();

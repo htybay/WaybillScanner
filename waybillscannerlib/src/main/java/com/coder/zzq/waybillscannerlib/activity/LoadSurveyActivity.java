@@ -465,6 +465,7 @@ public class LoadSurveyActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SmartSnackbar.destroy(this);
         if (mDisposables != null && !mDisposables.isEmpty()) {
             Set<String> list = mDisposables.keySet();
             for (String s : list) {

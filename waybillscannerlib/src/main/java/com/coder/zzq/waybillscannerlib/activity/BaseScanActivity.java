@@ -109,11 +109,6 @@ public abstract class BaseScanActivity extends AppCompatActivity {
                 mScanTip.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (mMediaPlayer != null){
-                            mMediaPlayer.stop();
-                            mMediaPlayer.release();
-                            mMediaPlayer = null;
-                        }
 
                         Intent intent = new Intent(BaseScanActivity.this, CaptureActivity.class);
                         if (onPhoneScanTipClick()) {
@@ -180,7 +175,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(getstr)) {
                     String data = intent.getStringExtra("data");
-                    onReceiveScanData(data);
+//                    onReceiveScanData(data);
                 }
             }
         };
@@ -190,7 +185,8 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     }
 
 
-    private MediaPlayer mMediaPlayer;
+    private MediaPlayer mMediaPlayerNormal;
+    private MediaPlayer mMediaPlayerError;
 
     private void soundTip(int type) {
 
@@ -198,34 +194,43 @@ public abstract class BaseScanActivity extends AppCompatActivity {
 
         switch (type) {
             case SOUND_TIP_NORMAL:
-                soundRes = "003.wav";
+                getNormalPlayer().start();
                 break;
             case SOUND_TIP_ERROR:
-                soundRes = "001.wav";
+                getErrorPlayer().start();
                 break;
         }
 
-        AssetManager assetManager = null;
+    }
 
-        if (mMediaPlayer == null) {
-
-            assetManager = getAssets();
-            mMediaPlayer = new MediaPlayer();
-
-        } else {
-            mMediaPlayer.reset();
+    private MediaPlayer getErrorPlayer() {
+        if (mMediaPlayerError == null){
+            mMediaPlayerError = new MediaPlayer();
+            try {
+                AssetFileDescriptor assetFileDescriptor = getAssets().openFd("001.wav");
+                mMediaPlayerError.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                mMediaPlayerError.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
+        return mMediaPlayerError;
+    }
 
-        try {
-            AssetFileDescriptor assetFileDescriptor = assetManager.openFd(soundRes);
-            mMediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-            mMediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private MediaPlayer getNormalPlayer() {
+        if (mMediaPlayerNormal == null){
+            mMediaPlayerNormal = new MediaPlayer();
+            try {
+                AssetFileDescriptor assetFileDescriptor = getAssets().openFd("003.wav");
+                mMediaPlayerNormal.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                mMediaPlayerNormal.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        mMediaPlayer.start();
+        return mMediaPlayerNormal;
     }
 
     protected void playNormalSound() {
@@ -237,39 +242,17 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     }
 
 
-    protected void onReceiveScanData(String data) {
-        Log.d("fuck", data);
-    }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQ_CODE_TO_SCAN && data != null) {
-            Bundle bundle = data.getExtras();
-            switch (bundle.getInt(CodeUtils.RESULT_TYPE)) {
-                case CodeUtils.RESULT_SUCCESS:
-                    String orderStr = bundle.getString(CodeUtils.RESULT_STRING);
-                    Log.d("scan", "on scan str :" + orderStr);
-                    onReceiveScanData(orderStr);
-                    break;
-                case CodeUtils.RESULT_FAILED:
-                    SmartSnackbar.get(this).show("扫面失败");
-                    break;
-            }
-        }
-    }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        if (mMediaPlayer != null){
-            mMediaPlayer.stop();
-            mMediaPlayer.release();
-            mMediaPlayer = null;
-        }
+        releaseMediaplayer(mMediaPlayerError);
+        releaseMediaplayer(mMediaPlayerNormal);
+        mMediaPlayerNormal = null;
+        mMediaPlayerError = null;
 
         if (mDisposables != null && !mDisposables.isEmpty()) {
             Set<String> list = mDisposables.keySet();
@@ -280,6 +263,15 @@ public abstract class BaseScanActivity extends AppCompatActivity {
                 }
                 mDisposables.remove(s);
             }
+        }
+
+        SmartSnackbar.destroy(this);
+    }
+
+    private void releaseMediaplayer(MediaPlayer mediaPlayerError) {
+        if (mediaPlayerError != null){
+            mediaPlayerError.stop();
+            mediaPlayerError.release();
         }
     }
 }

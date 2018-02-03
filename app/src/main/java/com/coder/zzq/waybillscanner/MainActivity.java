@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 .runningEnvironment(1)
                 .deviceType(WaybillScanner.DEVICE_PHONE)
                 .operateType(WaybillScanner.OPT_SCAN_UNLOAD)
-                .userInfo(UserInfo.create().userId("71").branchCode("2007").companyCode("002"))
+                .userInfo(UserInfo.create().userId("83").branchCode("2001").companyCode("002"))
                 .toScan();
     }
 }

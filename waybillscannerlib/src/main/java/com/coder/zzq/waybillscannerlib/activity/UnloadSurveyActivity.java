@@ -434,5 +434,9 @@ public class UnloadSurveyActivity extends AppCompatActivity {
                 mDisposables.remove(s);
             }
         }
+
+        SmartSnackbar.destroy(this);
     }
+
+
 }

@@ -40,11 +40,13 @@ import com.coder.zzq.waybillscannerlib.bean.TripNoToDepart;
 import com.coder.zzq.waybillscannerlib.http.ApiService;
 import com.coder.zzq.waybillscannerlib.http.BaseResponse;
 import com.coder.zzq.waybillscannerlib.utils.CustomDialog;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -157,7 +159,26 @@ public class TrunckLoadActivity extends BaseScanActivity {
         return true;
     }
 
-    @Override
+
+        @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQ_CODE_TO_SCAN && data != null) {
+            Bundle bundle = data.getExtras();
+            switch (bundle.getInt(CodeUtils.RESULT_TYPE)) {
+                case CodeUtils.RESULT_SUCCESS:
+                    String orderStr = bundle.getString(CodeUtils.RESULT_STRING);
+                    Log.d("scan", "on scan str :" + orderStr);
+                    onReceiveScanData(orderStr);
+                    break;
+                case CodeUtils.RESULT_FAILED:
+                    SmartSnackbar.get(this).show("扫面失败");
+                    break;
+            }
+        }
+    }
+
+
     protected void onReceiveScanData(String data) {
 
         Log.d("fuck",data);
@@ -169,7 +190,7 @@ public class TrunckLoadActivity extends BaseScanActivity {
         }
 
         if (!data.matches(WAYBILL_REG_EX)){
-            SmartSnackbar.get(this).showIndefinite("请扫描货物标签：" + data,"知道了");
+            SmartSnackbar.get(this).showIndefinite("数据解析失败:" + data + "\n请对准货物标签重试！","知道了");
             playErrorSound();
             return;
         }
@@ -420,5 +441,22 @@ public class TrunckLoadActivity extends BaseScanActivity {
             return;
         }
         getTripNoSelector().showAtLocation(mTrukAndBranch, Gravity.TOP, 0, (int) Utils.dp2px(this,100));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDisposables != null && !mDisposables.isEmpty()) {
+            Set<String> list = mDisposables.keySet();
+            for (String s : list) {
+                if (!mDisposables.get(s).isDisposed()) {
+                    mDisposables.get(s).dispose();
+
+                }
+                mDisposables.remove(s);
+            }
+        }
+
+        SmartSnackbar.destroy(this);
     }
 }

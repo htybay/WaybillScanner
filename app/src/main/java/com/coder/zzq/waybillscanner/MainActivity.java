@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onTestClick(View view) {
+
+
         WaybillScanner.get(this)
                 .runningEnvironment(1)
                 .deviceType(WaybillScanner.DEVICE_PHONE)

@@ -97,6 +97,8 @@ public class UnloadActivity extends BaseScanActivity {
             return;
         }
 
+
+
         if (!data.matches(WAYBILL_REG_EX)) {
             SmartSnackbar.get(this).showIndefinite("数据解析失败！\n请对准货物标签重试！","知道了");
             playErrorSound();

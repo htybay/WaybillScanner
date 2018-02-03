@@ -20,12 +20,14 @@ import android.widget.TextView;
 
 
 import com.coder.zzq.smartshow.snackbar.SmartSnackbar;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.coder.zzq.waybillscannerlib.R;
 import com.coder.zzq.waybillscannerlib.WaybillScanner;
 import com.coder.zzq.waybillscannerlib.receiver.Broadcast;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +59,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
 
     protected TextView mToolbarTitle;
 
-    protected EditText mScanTip;
+    protected View mScanTip;
 
     protected View mEmptyView;
 
@@ -94,21 +96,28 @@ public abstract class BaseScanActivity extends AppCompatActivity {
         });
         mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         mSurvey = (TextView) findViewById(R.id.survey);
-        mScanTip = (EditText) findViewById(R.id.scan_tip);
+        mScanTip = findViewById(R.id.scan_line);
         mEmptyView = findViewById(R.id.imgv_empty);
         mDeviceType = getIntent().getIntExtra(EXTRA_DEVICE_TYPE, WaybillScanner.DEVICE_PDA);
         mOperateType = getIntent().getIntExtra(EXTRA_OPERATE_TYPE, WaybillScanner.DEVICE_PHONE);
         switch (mDeviceType) {
             case WaybillScanner.DEVICE_PDA:
-                mScanTip.setText(R.string.pda_scan_tip);
+
                 break;
             case WaybillScanner.DEVICE_PHONE:
-                mScanTip.setText(R.string.phone_scan_tip);
+
                 mScanTip.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (mMediaPlayer != null){
+                            mMediaPlayer.stop();
+                            mMediaPlayer.release();
+                            mMediaPlayer = null;
+                        }
+
                         Intent intent = new Intent(BaseScanActivity.this, CaptureActivity.class);
-                        if(onPhoneScanTipClick()){
+                        if (onPhoneScanTipClick()) {
+                            SmartToast.dismiss();
                             startActivityForResult(intent, REQ_CODE_TO_SCAN);
                         }
 
@@ -181,45 +190,55 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     }
 
 
-    private void soundTip(String strType) {
-        try {
+    private MediaPlayer mMediaPlayer;
 
-            AssetManager assetManager = this.getAssets();
-            final MediaPlayer player = new MediaPlayer();
-            if ("1".equals(strType)) {
-                //异常警告音
-                AssetFileDescriptor afd = assetManager.openFd("001.wav");
-                player.setDataSource(afd.getFileDescriptor(),
-                        afd.getStartOffset(), afd.getLength());
-            } else if ("2".equals(strType)) {
-                //正常提示音
-                AssetFileDescriptor afd = assetManager.openFd("003.wav");
-                player.setDataSource(afd.getFileDescriptor(),
-                        afd.getStartOffset(), afd.getLength());
-            }
-            //循环播放
-            //player.setLooping(true);
-            player.prepare();
-            player.start();
-        } catch (Exception e) {
+    private void soundTip(int type) {
+
+        String soundRes = "003.wav";
+
+        switch (type) {
+            case SOUND_TIP_NORMAL:
+                soundRes = "003.wav";
+                break;
+            case SOUND_TIP_ERROR:
+                soundRes = "001.wav";
+                break;
+        }
+
+        AssetManager assetManager = null;
+
+        if (mMediaPlayer == null) {
+
+            assetManager = getAssets();
+            mMediaPlayer = new MediaPlayer();
+
+        } else {
+            mMediaPlayer.reset();
+        }
+
+
+        try {
+            AssetFileDescriptor assetFileDescriptor = assetManager.openFd(soundRes);
+            mMediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+            mMediaPlayer.prepare();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
+        mMediaPlayer.start();
     }
 
     protected void playNormalSound() {
-
-
-        soundTip("2");
+        soundTip(SOUND_TIP_NORMAL);
     }
 
     protected void playErrorSound() {
-        soundTip("1");
+        soundTip(SOUND_TIP_ERROR);
     }
 
 
     protected void onReceiveScanData(String data) {
-        Log.d("fuck",data);
+        Log.d("fuck", data);
     }
 
 
@@ -245,6 +264,13 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if (mMediaPlayer != null){
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+
         if (mDisposables != null && !mDisposables.isEmpty()) {
             Set<String> list = mDisposables.keySet();
             for (String s : list) {

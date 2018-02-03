@@ -66,6 +66,7 @@ public class UnloadActivity extends BaseScanActivity {
         mSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SmartToast.dismiss();
                 Intent intent = new Intent(UnloadActivity.this, UnloadSurveyActivity.class);
                 intent.putExtra("tripNo", strTruck);
                 intent.putExtra("flagActivity", 1);//1卸货

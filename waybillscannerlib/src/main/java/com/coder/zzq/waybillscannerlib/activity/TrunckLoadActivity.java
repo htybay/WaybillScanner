@@ -119,6 +119,7 @@ public class TrunckLoadActivity extends BaseScanActivity {
         mSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SmartToast.dismiss();
                 Intent intent = new Intent(TrunckLoadActivity.this, LoadSurveyActivity.class);
                 intent.putExtra("tripNo", mSelectedTripNo.getTripNo());
                 intent.putExtra("flagActivity", 0);//装车

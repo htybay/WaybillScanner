@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,30 +10,29 @@
     tools:context="com.coder.zzq.waybillscannerlib.activity.UnloadActivity">
 
 
-    <!--显示扫码后的信息-->
-    <EditText
-        android:drawablePadding="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:drawableLeft="@drawable/fh_btn_scan_disabled"
-        android:id="@+id/scan_tip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:focusable="false"
-        android:paddingLeft="16dp"
-        android:text="点击屏幕下方扫描键扫码"
-        android:textColor="#999999"
-        android:textSize="16sp">
-
-        <requestFocus/>
-
-    </EditText>
-
-
     <include layout="@layout/empty_hint"/>
 
     <RelativeLayout
+        android:id="@+id/scan_line"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:drawablePadding="10dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="扫描货物标签"
+            android:drawableLeft="@drawable/saomiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_above="@id/scan_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -45,4 +44,5 @@
             android:layout_margin="5dp"></android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
-</LinearLayout>
+
+</RelativeLayout>

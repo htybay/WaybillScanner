@@ -1,84 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/top_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:id="@+id/truk_and_branch"
-                android:onClick="onTruckAndBranchChoose"
-                android:drawablePadding="10dp"
-                android:textColor="#333333"
-                android:gravity="center_vertical"
-                android:text="请选择车辆信息"
-                android:background="@null"
-                android:focusable="false"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_xzhc"
-                android:drawableRight="@drawable/icon_down"/>
+        <TextView
+            android:id="@+id/truk_and_branch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableLeft="@drawable/icon_xzhc"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/icon_down"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:onClick="onTruckAndBranchChoose"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp"
+            android:text="请选择车辆信息"
+            android:textColor="#333333"
+            android:textSize="16sp"/>
 
 
-        <include layout="@layout/include_line_horizontal" />
+        <include layout="@layout/include_line_horizontal"/>
 
 
-
-            <TextView
-                android:drawablePadding="18dp"
-                android:drawableLeft="@drawable/gxzc_icon_billing"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:text="交接单号"
-                android:textColor="#999999"
-                android:paddingLeft="10dp"
-                android:textSize="16sp"
-                android:id="@+id/truck_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-
-        <include layout="@layout/include_line_horizontal" />
+        <TextView
+            android:id="@+id/truck_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/gxzc_icon_billing"
+            android:drawablePadding="18dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp"
+            android:text="交接单号"
+            android:textColor="#999999"
+            android:textSize="16sp"/>
 
 
-            <EditText
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:drawablePadding="16dp"
-                android:drawableLeft="@drawable/fh_btn_scan_disabled"
-                android:id="@+id/scan_tip"
-                android:layout_width="match_parent"
-                android:textColor="#999999"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:focusable="false"
-                android:text="点击屏幕下方扫描键扫码"
-                android:textSize="16sp">
-                <requestFocus />
-
-            </EditText>
-
+        <include layout="@layout/include_line_horizontal"/>
 
     </LinearLayout>
 
 
-    <include layout="@layout/empty_hint" />
+    <LinearLayout
+        android:layout_below="@id/top_line"
+        android:id="@+id/imgv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eeeeee"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/icon_empty"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="16dp"
+            android:text="没有新的扫描信息"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/scan_line"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:drawablePadding="10dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="扫描货物标签"
+            android:drawableLeft="@drawable/saomiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
     <!--显示结果列表-->
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/top_line"
         android:id="@+id/rev_result"
+        android:layout_above="@id/scan_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"/>
 
-</LinearLayout>
+
+
+</RelativeLayout>

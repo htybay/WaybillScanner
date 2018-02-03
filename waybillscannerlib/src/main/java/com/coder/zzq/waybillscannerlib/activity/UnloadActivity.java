@@ -94,6 +94,7 @@ public class UnloadActivity extends BaseScanActivity {
         if (Utils.trimOrder(data).isEmpty()) {
             SmartSnackbar.get(this).showIndefinite("未扫描到有效内容！", "知道了");
             playErrorSound();
+
             return;
         }
 

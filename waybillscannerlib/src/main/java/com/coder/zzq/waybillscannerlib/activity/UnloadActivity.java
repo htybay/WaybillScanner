@@ -28,6 +28,8 @@ import com.coder.zzq.waybillscannerlib.utils.CustomDialog;
 import com.coder.zzq.waybillscannerlib.utils.SharePrefUtils;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,6 +125,7 @@ public class UnloadActivity extends BaseScanActivity {
 
                     @Override
                     public void onNext(BaseResponse<UnloadResult> value) {
+
                         UnloadResult.WaybillResultBean waybillResultBean = value.getReturnData().getWaybillResult().get(0);
                         BillEntity billEntity;
                         if (value.getReturnCode() == 1) {
@@ -152,7 +155,14 @@ public class UnloadActivity extends BaseScanActivity {
                     public void onError(Throwable e) {
                         mDisposables.remove("unload");
                         CustomDialog.dissProgressDialog();
-                        SmartSnackbar.get(UnloadActivity.this).showIndefinite(e.toString(), "知道了");
+                        String tip = "";
+                        if (e.getClass() == SocketTimeoutException.class){
+                            tip = "网络超时！";
+                        }else if (e.getClass() == IOException.class){
+                            tip = "网络请求错误，请重新扫码！";
+                        }
+
+                        SmartSnackbar.get(UnloadActivity.this).showIndefinite(tip, "知道了");
                     }
 
                     @Override

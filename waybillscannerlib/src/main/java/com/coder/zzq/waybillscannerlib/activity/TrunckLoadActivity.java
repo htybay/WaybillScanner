@@ -42,6 +42,7 @@ import com.coder.zzq.waybillscannerlib.http.BaseResponse;
 import com.coder.zzq.waybillscannerlib.utils.CustomDialog;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -108,6 +109,9 @@ public class TrunckLoadActivity extends BaseScanActivity {
                     public void onError(Throwable e) {
                         mDisposables.remove("list");
                         CustomDialog.dissProgressDialog();
+                        if (e.getClass() == SocketTimeoutException.class){
+
+                        }
                         SmartSnackbar.get(TrunckLoadActivity.this).showIndefinite(e.toString(),"知道了");
                     }
 

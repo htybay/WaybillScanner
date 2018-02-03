@@ -190,7 +190,6 @@ public abstract class BaseScanActivity extends AppCompatActivity {
 
     private void soundTip(int type) {
 
-        String soundRes = "003.wav";
 
         switch (type) {
             case SOUND_TIP_NORMAL:

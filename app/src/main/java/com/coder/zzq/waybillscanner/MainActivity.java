@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         WaybillScanner.get(this)
                 .runningEnvironment(1)
                 .deviceType(WaybillScanner.DEVICE_PHONE)
-                .operateType(WaybillScanner.OPT_SCAN_UNLOAD)
+                .operateType(WaybillScanner.OPT_SCAN_LOAD)
                 .userInfo(UserInfo.create().userId("71").branchCode("2007").companyCode("002"))
                 .toScan();
     }

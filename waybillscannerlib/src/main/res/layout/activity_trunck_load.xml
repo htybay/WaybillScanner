@@ -9,17 +9,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/lay_truck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:background="#ffffff"
-            android:orientation="horizontal"
-            android:padding="5dp">
+
             <TextView
+                android:paddingLeft="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
                 android:id="@+id/truk_and_branch"
                 android:onClick="onTruckAndBranchChoose"
                 android:drawablePadding="10dp"
@@ -30,65 +24,42 @@
                 android:focusable="false"
                 android:textSize="16sp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_xzhc"
                 android:drawableRight="@drawable/icon_down"/>
-            <!--android:entries="@array/cc"-->
-        </LinearLayout>
+
 
         <include layout="@layout/include_line_horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:background="#ffffff"
-            android:orientation="horizontal"
-            android:padding="5dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/gxzc_icon_billing" />
 
             <TextView
-
+                android:drawablePadding="18dp"
+                android:drawableLeft="@drawable/gxzc_icon_billing"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
                 android:text="交接单号"
                 android:textColor="#999999"
-                android:paddingLeft="16dp"
+                android:paddingLeft="10dp"
                 android:textSize="16sp"
                 android:id="@+id/truck_no"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
+                android:layout_height="wrap_content"/>
 
 
+        <include layout="@layout/include_line_horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="2dp"
-            android:background="#ffffff"
-            android:orientation="horizontal"
-            android:padding="5dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="2dp"
-                android:src="@drawable/fh_btn_scan_disabled" />
             <EditText
-                android:paddingLeft="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="16dp"
+                android:drawableLeft="@drawable/fh_btn_scan_disabled"
                 android:id="@+id/scan_tip"
-                android:layout_width="260dp"
+                android:layout_width="match_parent"
                 android:textColor="#999999"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
                 android:background="@null"
                 android:focusable="false"
                 android:text="点击屏幕下方扫描键扫码"
@@ -97,7 +68,7 @@
 
             </EditText>
 
-        </LinearLayout>
+
     </LinearLayout>
 
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -205,6 +206,8 @@ public class UnloadActivity extends BaseScanActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        releaseMediaplayer(mMediaPlayerError);
+        releaseMediaplayer(mMediaPlayerNormal);
         if (mDisposables != null && !mDisposables.isEmpty()) {
             Set<String> list = mDisposables.keySet();
             for (String s : list) {
@@ -230,8 +233,7 @@ public class UnloadActivity extends BaseScanActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        releaseMediaplayer(mMediaPlayerError);
-        releaseMediaplayer(mMediaPlayerNormal);
+
     }
 
 
@@ -288,5 +290,14 @@ public class UnloadActivity extends BaseScanActivity {
 
     protected void playErrorSound() {
         soundTip(SOUND_TIP_ERROR);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_HOME){
+            releaseMediaplayer(mMediaPlayerError);
+            releaseMediaplayer(mMediaPlayerNormal);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -19,6 +19,7 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -470,14 +471,14 @@ public class TrunckLoadActivity extends BaseScanActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        releaseMediaplayer(mMediaPlayerError);
-        releaseMediaplayer(mMediaPlayerNormal);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        releaseMediaplayer(mMediaPlayerError);
+        releaseMediaplayer(mMediaPlayerNormal);
         mMediaPlayerNormal = null;
         mMediaPlayerError = null;
         if (mDisposables != null && !mDisposables.isEmpty()) {
@@ -547,5 +548,14 @@ public class TrunckLoadActivity extends BaseScanActivity {
 
     protected void playErrorSound() {
         soundTip(SOUND_TIP_ERROR);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_HOME){
+            releaseMediaplayer(mMediaPlayerError);
+            releaseMediaplayer(mMediaPlayerNormal);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

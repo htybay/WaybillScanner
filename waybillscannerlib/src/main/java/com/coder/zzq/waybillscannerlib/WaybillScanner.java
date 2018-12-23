@@ -78,7 +78,7 @@ public class WaybillScanner {
     }
 
 
-    public void toScan() {
+    public void toScan(Context context) {
         switch (mOperateType) {
             case OPT_SCAN_LOAD:
                 TrunckLoadActivity.startActivity(mContext, mDeviceType, mOperateType);
